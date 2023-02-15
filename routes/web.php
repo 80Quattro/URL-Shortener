@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\URLController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Show home page (welcome)
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Show All URLs
+Route::get('/urls', [URLController::class, 'index']);
+
+// Show Create URL Form
+Route::get('/urls/create', [URLController::class, 'create']);
+
+// Store URL Data
+Route::post('/urls', [URLController::class, 'store']);
+
+// Redirect shortURLKey to Destination URL
+Route::get('/s/{shortURLKey}', \AshAllenDesign\ShortURL\Controllers\ShortURLController::class);
