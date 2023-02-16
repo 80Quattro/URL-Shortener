@@ -56,4 +56,11 @@ class URLController extends Controller
 
         return redirect("/urls/" . $url->id);
     }
+
+    // Delete URL
+    public function destroy(ShortURL $url)
+    {
+        $url->delete();
+        return redirect('/urls');
+    }
 }

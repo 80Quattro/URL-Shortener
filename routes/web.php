@@ -38,5 +38,8 @@ Route::get('/urls/{url}/edit', [URLController::class, 'edit']);
 // Update URL
 Route::put('/urls/{url}', [URLController::class, 'update']);
 
+// Delete URL
+Route::delete('/urls/{url}', [URLController::class, 'destroy']);
+
 // Redirect shortURLKey to Destination URL
 Route::get('/s/{shortURLKey}', \AshAllenDesign\ShortURL\Controllers\ShortURLController::class);

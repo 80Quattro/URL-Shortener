@@ -1,6 +1,12 @@
-<a href="/urls">< See all URLs</a>
+<a href="/urls"><code><</code>See all URLs</a>
 <br>
 <a href="/urls/{{$url['id']}}/edit">Edit</a>
+<br>
+<form method="POST" action="/urls/{{$url['id']}}">
+    @csrf
+    @method("DELETE")
+    <button>Delete</button>
+</form>
 
 <h3>Details</h3>
 
