@@ -15,9 +15,9 @@ class URLController extends Controller
     }
 
     // Show single URL
-    public function show($id)
+    public function show(ShortURL $url)
     {
-        return view('url.show', ['url' => ShortURL::find($id)]);
+        return view('url.show', ['url' => $url]);
     }
 
     // Show Create URL Form
@@ -37,5 +37,23 @@ class URLController extends Controller
         $shortURLObject = ShortURLFacade::destinationUrl($destinationURL)->make();
         $shortURLObject->save();
         return redirect('/');
+    }
+
+    // Show Update URL Form
+    public function edit(ShortURL $url)
+    {
+        return view('url.edit', ['url' => $url]);
+    }
+
+    // Update URL
+    public function update(Request $request, ShortURL $url)
+    {
+        $formFields = $request->validate([
+            'destination_url' => 'required'
+        ]);
+
+        $url->update($formFields);
+
+        return redirect("/urls/" . $url->id);
     }
 }

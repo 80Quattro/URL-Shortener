@@ -30,7 +30,13 @@ Route::get('/urls/create', [URLController::class, 'create']);
 Route::post('/urls', [URLController::class, 'store']);
 
 // Show Single URL
-Route::get('/urls/{id}', [URLController::class, 'show']);
+Route::get('/urls/{url}', [URLController::class, 'show']);
+
+// Show Edit URL Form
+Route::get('/urls/{url}/edit', [URLController::class, 'edit']);
+
+// Update URL
+Route::put('/urls/{url}', [URLController::class, 'update']);
 
 // Redirect shortURLKey to Destination URL
 Route::get('/s/{shortURLKey}', \AshAllenDesign\ShortURL\Controllers\ShortURLController::class);
