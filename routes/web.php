@@ -29,5 +29,8 @@ Route::get('/urls/create', [URLController::class, 'create']);
 // Store URL Data
 Route::post('/urls', [URLController::class, 'store']);
 
+// Show Single URL
+Route::get('/urls/{id}', [URLController::class, 'show']);
+
 // Redirect shortURLKey to Destination URL
 Route::get('/s/{shortURLKey}', \AshAllenDesign\ShortURL\Controllers\ShortURLController::class);
