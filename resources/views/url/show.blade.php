@@ -1,4 +1,9 @@
+<a href="/urls">< See all URLs</a>
+<br>
 <a href="/urls/{{$url['id']}}/edit">Edit</a>
+
+<h3>Details</h3>
+
 <table>
     <tr>
         <td>Destination URL</td>
@@ -101,3 +106,39 @@
         </td>
     </tr>
 </table>
+
+<h3>Statistics</h3>
+
+@unless (count($visits) == 0)
+
+<p>This page is visited {{count($visits)}} times.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>IP Address</th>
+            <th>Operating System</th>
+            <th>OS version</th>
+            <th>Browser</th>
+            <th>Browser version</th>
+            <th>Device type</th>
+            <th>Visited at</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($visits as $visit)
+            <tr>
+                <td>{{$visit['ip_address']}}</td>
+                <td>{{$visit['operating_system']}}</td>
+                <td>{{$visit['operating_system_version']}}</td>
+                <td>{{$visit['browser']}}</td>
+                <td>{{$visit['browser_version']}}</td>
+                <td>{{$visit['device_type']}}</td>
+                <td>{{$visit['visited_at']}}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+@else
+    There are no visits yet.
+@endunless

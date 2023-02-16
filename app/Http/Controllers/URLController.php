@@ -17,7 +17,7 @@ class URLController extends Controller
     // Show single URL
     public function show(ShortURL $url)
     {
-        return view('url.show', ['url' => $url]);
+        return view('url.show', ['url' => $url, 'visits' => $url->visits]);
     }
 
     // Show Create URL Form
