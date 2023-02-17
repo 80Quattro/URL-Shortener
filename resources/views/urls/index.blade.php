@@ -1,26 +1,32 @@
-@unless(count($urls) == 0)
+@extends('layouts.app')
 
-<table>
-    <thead>
-        <tr>
-            <th>Short URL</th>
-            <th>Destination URL</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($urls as $url)
+@section('content')
+
+    @unless(count($urls) == 0)
+
+    <table>
+        <thead>
             <tr>
-                <td>{{$url['default_short_url']}}</td>
-                <td>{{$url['destination_url']}}</td>
-                <td><a href="/urls/{{$url['id']}}">Details</a></td>
-                <td><a href="/urls/{{$url['id']}}/edit">Edit</a></td>
+                <th>Short URL</th>
+                <th>Destination URL</th>
             </tr>
-        @endforeach
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach ($urls as $url)
+                <tr>
+                    <td>{{$url['default_short_url']}}</td>
+                    <td>{{$url['destination_url']}}</td>
+                    <td><a href="/urls/{{$url['id']}}">Details</a></td>
+                    <td><a href="/urls/{{$url['id']}}/edit">Edit</a></td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-@else
+    @else
 
-You have no URLs yet.
+        You have no URLs yet.
 
-@endunless
+    @endunless
+
+@endsection

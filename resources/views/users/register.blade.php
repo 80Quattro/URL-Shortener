@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <form method="POST" action="/users">
     @csrf
     <div>
@@ -14,3 +18,5 @@
     </div>
     <input type="submit" value="Register">
 </form>
+
+@endsection

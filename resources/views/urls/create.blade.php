@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <form method="POST" action="/urls">
     @csrf
     <div>
@@ -38,3 +42,5 @@
     </div>
     <input type="submit" value="Shorten">
 </form>
+
+@endsection

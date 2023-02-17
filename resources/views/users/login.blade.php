@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <form method="POST" action="/users/authenticate">
     @csrf
     <div>
@@ -10,3 +14,5 @@
     </div>
     <input type="submit" value="Login">
 </form>
+
+@endsection
