@@ -7,6 +7,9 @@
     <div>
         <label for="destination_url">Enter destination URL: </label>
         <input type="text" name="destination_url">
+        @error('destination_url')
+            <p>{{$message}}</p>
+        @enderror
     </div>
     <div>
         <label for="track_visits">Track visits: </label>

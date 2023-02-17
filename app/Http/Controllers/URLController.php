@@ -29,8 +29,8 @@ class URLController extends Controller
     // Store URL Data
     public function store(Request $request)
     {
-        $formFields = $request->validate([
-            'destination_url' => 'required'
+        $request->validate([
+            'destination_url' => ['required', 'url']
         ]);
 
         $destinationURL = $request->input('destination_url');
@@ -58,8 +58,17 @@ class URLController extends Controller
     public function update(Request $request, ShortURL $url)
     {
         $formFields = $request->validate([
-            'destination_url' => 'required'
+            'destination_url' => ['required', 'url']
         ]);
+
+        $url->track_visits = filter_var($request->input('track_visits'), FILTER_VALIDATE_BOOLEAN);
+        $url->track_ip_address = filter_var($request->input('track_ip_address'), FILTER_VALIDATE_BOOLEAN);
+        $url->track_operating_system = filter_var($request->input('track_operating_system'), FILTER_VALIDATE_BOOLEAN);
+        $url->track_operating_system_version = filter_var($request->input('track_operating_system_version'), FILTER_VALIDATE_BOOLEAN);
+        $url->track_browser = filter_var($request->input('track_browser'), FILTER_VALIDATE_BOOLEAN);
+        $url->track_browser_version = filter_var($request->input('track_browser_version'), FILTER_VALIDATE_BOOLEAN);
+        $url->track_referer_url = filter_var($request->input('track_referer_url'), FILTER_VALIDATE_BOOLEAN);
+        $url->track_device_type = filter_var($request->input('track_device_type'), FILTER_VALIDATE_BOOLEAN);
 
         $url->update($formFields);
 
