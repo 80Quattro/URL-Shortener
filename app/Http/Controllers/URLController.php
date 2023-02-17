@@ -11,19 +11,19 @@ class URLController extends Controller
     // Show all URL's
     public function index()
     {
-        return view('url.index', ['urls' => ShortURL::all()]);
+        return view('urls.index', ['urls' => ShortURL::all()]);
     }
 
     // Show single URL
     public function show(ShortURL $url)
     {
-        return view('url.show', ['url' => $url, 'visits' => $url->visits]);
+        return view('urls.show', ['url' => $url, 'visits' => $url->visits]);
     }
 
     // Show Create URL Form
     public function create()
     {
-        return view('url.create');
+        return view('urls.create');
     }
 
     // Store URL Data
@@ -51,7 +51,7 @@ class URLController extends Controller
     // Show Update URL Form
     public function edit(ShortURL $url)
     {
-        return view('url.edit', ['url' => $url]);
+        return view('urls.edit', ['url' => $url]);
     }
 
     // Update URL
