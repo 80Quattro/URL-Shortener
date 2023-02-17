@@ -36,4 +36,38 @@ class UserController extends Controller
 
         return redirect('/');
     }
+
+    // Show Login Form
+    public function login()
+    {
+        return view('users.login');
+    }
+
+    // User Authenticate / Login
+    public function authenticate(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required'
+        ]);
+
+        if(auth()->attempt($formFields)) {
+            $request->session()->regenerate();
+            return redirect('/urls');
+        }
+
+        return back()->withErrors(['password' => 'Invalid Credentials']);
+    }
+
+    // User Logout
+    public function logout(Request $request)
+    {
+        auth()->logout();
+
+        // It is recommended to invalidate all sessions and regenerate token too
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
 }
