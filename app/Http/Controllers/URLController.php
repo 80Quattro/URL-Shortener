@@ -3,20 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use AshAllenDesign\ShortURL\Models\ShortURL;
-use AshAllenDesign\ShortURL\Facades\ShortURL as ShortURLFacade;
+use App\Models\ShortURL;
+use App\Classes\ShortURLBuilder;
 
 class URLController extends Controller
 {
-    // Show all URL's
+    // Show all URL's of logged in user
     public function index()
     {
-        return view('urls.index', ['urls' => ShortURL::all()]);
+        return view('urls.index', ['urls' => auth()->user()->urls()->get()]);
     }
 
     // Show single URL
     public function show(ShortURL $url)
     {
+        // Make sure that logged in user is owner
+        if($url->user_id != auth()->id()) {
+            abort(403);
+        }
+
         return view('urls.show', ['url' => $url, 'visits' => $url->visits]);
     }
 
@@ -29,12 +34,13 @@ class URLController extends Controller
     // Store URL Data
     public function store(Request $request)
     {
-        $request->validate([
+        $formFields = $request->validate([
             'destination_url' => ['required', 'url']
         ]);
 
-        $destinationURL = $request->input('destination_url');
-        $shortURLObject = ShortURLFacade::destinationUrl($destinationURL)
+        $builder = new ShortURLBuilder();
+        $builder->destinationUrl($formFields['destination_url'])
+            ->userId(auth()->id())
             ->trackVisits(filter_var($request->input('track_visits'), FILTER_VALIDATE_BOOLEAN))
             ->trackIPAddress(filter_var($request->input('track_ip_address'), FILTER_VALIDATE_BOOLEAN))
             ->trackOperatingSystem(filter_var($request->input('track_operating_system'), FILTER_VALIDATE_BOOLEAN))
@@ -44,19 +50,29 @@ class URLController extends Controller
             ->trackRefererURL(filter_var($request->input('track_referer_url'), FILTER_VALIDATE_BOOLEAN))
             ->trackDeviceType(filter_var($request->input('track_device_type'), FILTER_VALIDATE_BOOLEAN))
             ->make();
-        $shortURLObject->save();
+
         return redirect('/urls');
     }
 
     // Show Update URL Form
     public function edit(ShortURL $url)
     {
+        // Make sure that logged in user is owner
+        if($url->user_id != auth()->id()) {
+            abort(403);
+        }
+
         return view('urls.edit', ['url' => $url]);
     }
 
     // Update URL
     public function update(Request $request, ShortURL $url)
     {
+        // Make sure that logged in user is owner
+        if($url->user_id != auth()->id()) {
+            abort(403);
+        }
+
         $formFields = $request->validate([
             'destination_url' => ['required', 'url']
         ]);
@@ -78,6 +94,11 @@ class URLController extends Controller
     // Delete URL
     public function destroy(ShortURL $url)
     {
+        // Make sure that logged in user is owner
+        if($url->user_id != auth()->id()) {
+            abort(403);
+        }
+
         $url->delete();
         return redirect('/urls');
     }
