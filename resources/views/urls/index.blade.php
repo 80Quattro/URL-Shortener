@@ -2,13 +2,16 @@
 
 @section('content')
 
+    <a href="/urls/create" class="btn btn-dark float-end">Create new</a>
+
     @unless(count($urls) == 0)
 
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Short URL</th>
                 <th>Destination URL</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -16,8 +19,10 @@
                 <tr>
                     <td>{{$url['default_short_url']}}</td>
                     <td>{{$url['destination_url']}}</td>
-                    <td><a href="/urls/{{$url['id']}}">Details</a></td>
-                    <td><a href="/urls/{{$url['id']}}/edit">Edit</a></td>
+                    <td>
+                        <a href="/urls/{{$url['id']}}" class="btn btn-dark">Details</a>
+                        <a href="/urls/{{$url['id']}}/edit" class="btn btn-dark">Edit</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
