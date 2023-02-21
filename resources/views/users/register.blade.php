@@ -4,28 +4,28 @@
 
 <form method="POST" action="/users">
     @csrf
-    <div>
-        <label for="email">Email: </label>
-        <input type="text" name="email" value="{{ old('email') }}">
+    <div class="mb-3">
+        <label for="email" class="form-label">Email: </label>
+        <input type="text" name="email" value="{{ old('email') }}" class="form-control">
         @error('email')
-            <p>{{$message}}</p>
+            <div class="alert alert-danger mt-2">{{$message}}</div>
         @enderror
     </div>
-    <div>
-        <label for="password">Password: </label>
-        <input type="password" name="password" value="{{ old('password') }}">
+    <div class="mb-3">
+        <label for="password" class="form-label">Password: </label>
+        <input type="password" name="password" value="{{ old('password') }}" class="form-control">
         @error('password')
-            <p>{{$message}}</p>
+            <div class="alert alert-danger mt-2">{{$message}}</div>
         @enderror
     </div>
-    <div>
-        <label for="password_confirmation">Repeat password: </label>
-        <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}">
+    <div class="mb-3">
+        <label for="password_confirmation" class="form-label">Repeat password: </label>
+        <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control">
         @error('password_confirmation')
-            <p>{{$message}}</p>
+            <div class="alert alert-danger mt-2">{{$message}}</div>
         @enderror
     </div>
-    <input type="submit" value="Register">
+    <input type="submit" value="Register" class="btn btn-dark">
 </form>
 
 @endsection
