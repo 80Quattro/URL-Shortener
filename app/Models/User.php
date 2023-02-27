@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Relationship with URL
+    public function urls()
+    {
+        return $this->hasMany(ShortURL::class, 'user_id');
+    }
 }
