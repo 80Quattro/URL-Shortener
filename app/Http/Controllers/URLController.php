@@ -51,7 +51,7 @@ class URLController extends Controller
             ->trackDeviceType(filter_var($request->input('track_device_type'), FILTER_VALIDATE_BOOLEAN))
             ->make();
 
-        return redirect('/urls');
+        return redirect('/urls')->with('message', 'URL created successfully!');
     }
 
     // Show Update URL Form
@@ -100,6 +100,6 @@ class URLController extends Controller
         }
 
         $url->delete();
-        return redirect('/urls');
+        return redirect('/urls')->with('message', 'URL deleted!');
     }
 }
